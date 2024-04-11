@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web1:
+    image: nginx:latest
+    ports:
+      - "8081:80"
+    deploy:
+      replicas: 2
+
+  web2:
+    image: nginx:latest
+    ports:
+      - "8082:80"
+    deploy:
+      replicas: 2
+
+  haproxy:
+    image: my-haproxy-image
+    ports:
+      - "80:80"
+      - "1936:1936"
+    depends_on:
+      - web1
+      - web2
